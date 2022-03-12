@@ -1,14 +1,11 @@
 from solution import *
 
 try:
-    #N = int(input("Enter N: "))
-    #K = int(input("Enter K: "))
-    
-    N = 10
-    K = 4
+    N = int(input("Enter N: "))
+    K = int(input("Enter K: "))
+    s = ReadFile(path)
 
     CheckVariables(N, K)
-    s = ReadFile(path)
     print(FrequencyList(s))
     print("Amount of words: ", WordsCounts(s))
     print("Average amount of words in sentence: ", Average(WordsCounts(s)))
@@ -19,6 +16,6 @@ try:
 
 except EOFError as exception:
     print(exception)
-    
+
 except ValueError as ex:
     print(ex)
