@@ -2,8 +2,8 @@ from solution import *
 
 try:
     try:
-        N = int(input("Enter N:"))
-        K = int(input("Enter K:"))
+        N = int(input("Enter N: "))
+        K = int(input("Enter K: "))
     except ValueError:
         print("Incorrect input")
         sys.exit()
@@ -11,6 +11,7 @@ try:
     s = ReadFile(path)
 
     CheckVariables(N, K)
+    print(f"Text: {s}")
     print(FrequencyList(s))
     print("Amount of words: ", WordsCounts(s))
     print("Average amount of words in sentence: ", Average(WordsCounts(s)))
