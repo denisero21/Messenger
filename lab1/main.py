@@ -1,8 +1,13 @@
 from solution import *
 
 try:
-    N = int(input("Enter N: "))
-    K = int(input("Enter K: "))
+    try:
+        N = int(input("Enter N:"))
+        K = int(input("Enter K:"))
+    except ValueError:
+        print("Incorrect input")
+        sys.exit()
+        
     s = ReadFile(path)
 
     CheckVariables(N, K)
