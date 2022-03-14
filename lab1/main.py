@@ -8,15 +8,15 @@ try:
         print("Incorrect input")
         sys.exit()
         
-    s = ReadFile(path)
+    s = read_file(path)
 
-    CheckVariables(N, K)
+    check_variables(N, K)
     print(f"Text: {s}")
-    print(FrequencyList(s))
-    print("Amount of words: ", WordsCounts(s))
-    print("Average amount of words in sentence: ", Average(WordsCounts(s)))
-    print("Median amount of words in sentence: ", Median(WordsCounts(s)))
-    dct = Ngramms(s, K)
+    print(frequency_list(s))
+    print("Amount of words: ", words_counts(s))
+    print("Average amount of words in sentence: ", average(words_counts(s)))
+    print("Median amount of words in sentence: ", median(words_counts(s)))
+    dct = n_gramms(s, K)
     print(f"Top-{N} {K}-gramms: ")
     print([dct[i] for i in range(min(N, len(dct)))])
 
