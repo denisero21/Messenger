@@ -1,5 +1,6 @@
 from solution import *
 
+
 try:
     try:
         N = int(input("Enter N: "))
@@ -20,8 +21,10 @@ try:
     print(f"Top-{N} {K}-gramms: ")
     print([dct[i] for i in range(min(N, len(dct)))])
 
+except ValueError as ex:
+    print(ex)
+    
 except EOFError as exception:
     print(exception)
 
-except ValueError as ex:
-    print(ex)
+
