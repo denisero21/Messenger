@@ -26,5 +26,6 @@ except ValueError as ex:
     
 except EOFError as exception:
     print(exception)
+    
 
 
