@@ -3,7 +3,7 @@ from serializer.parsers.parser import Parser
 
 
 def test_parsers(obj):
-    path = 'parsed_files'
+    path = 'parsed_files/'
     # toml parser
     toml_parser = Parser.create_parser('toml')
     with open(os.path.join(path, 'parsed.toml'), 'w') as file:
@@ -32,3 +32,4 @@ def test_parsers(obj):
         unparsed = json_parser.load(file)
         print(f'json parser result: {unparsed}')
     print()
+

@@ -6,7 +6,7 @@ def serialize_json(obj) -> str:
         ans = ', '.join(serialized)
         return f'[{ans}]'
     else:
-        return f'\'{str(obj)}\''
+        return f'\"{str(obj)}\"'
 
 
 def deserialize_json(obj: str):
@@ -29,7 +29,7 @@ def deserialize_json(obj: str):
                 parsed.append(deserialize_json(substr))
                 substr = ""
                 continue
-            elif i == ' ' and not quote:
+            elif i == " " and not quote:
                 continue
 
             substr += i
