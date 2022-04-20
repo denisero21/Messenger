@@ -47,10 +47,10 @@ def serialize_and_compare_func(func, tester):
 def parse_and_compare_func(func, format, tester):
     p = Parser.create_parser(format)
     format = "yml" if format.lower() == "yaml" else format.lower()
-    file = open(f"output.{format}", "w")
+    file = open(f"output/output.{format}", "w")
     p.dump(func, file)
     file.close()
-    file = open(f"output.{format}", "r")
+    file = open(f"output/output.{format}", "r")
     res = p.load(file)
     file.close()
     tester.assertEqual(res(2), func(2))

@@ -4,6 +4,7 @@ from serializer.parsers.parser import Parser
 
 def test_parsers(obj):
     path = 'parsed_files/'
+
     # toml parser
     toml_parser = Parser.create_parser('toml')
     with open(os.path.join(path, 'parsed.toml'), 'w') as file:

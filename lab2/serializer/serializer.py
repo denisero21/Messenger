@@ -12,23 +12,23 @@ FUNC_ATTRS = [
 
 
 CODE_OBJECT_ARGS = [
-        'co_argcount',
-        'co_posonlyargcount',
-        'co_kwonlyargcount',
-        'co_nlocals',
-        'co_stacksize',
-        'co_flags',
+        'co_cellvars',
         'co_code',
         'co_consts',
-        'co_names',
-        'co_varnames',
         'co_filename',
-        'co_name',
         'co_firstlineno',
-        'co_lnotab',
+        'co_flags',
         'co_freevars',
-        #'co_linetable',
-        'co_cellvars'
+        'co_kwonlyargcount',
+        #'co_linetable', #what the fuck?!??
+        'co_lnotab',
+        'co_name',
+        'co_names',
+        'co_nlocals',
+        'co_posonlyargcount',
+        'co_argcount',
+        'co_stacksize',
+        'co_varnames'
     ]
 
 
@@ -127,10 +127,12 @@ class Serializer:
                     for global_key in global_d:
                         glob[global_key] = global_d[global_key]
                 elif key == '__code__':
-                    value = i[1][1][1]      #list of lists
+                    value = i[1][1][1]   #list of lists
                     for arg in value:
                         code_arg_key = Serializer.deserialize(arg[0])
                         if code_arg_key != '__doc__':
+                            """if code_arg_key == 'co_linetable':
+                                continue"""
                             code_arg_val = Serializer.deserialize(arg[1])
                             index = CODE_OBJECT_ARGS.index(code_arg_key)
                             code[index] = code_arg_val
