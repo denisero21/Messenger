@@ -1,1 +1,1 @@
-python setup.py clean --all build install test
+python setup.py clean --all install clean --all

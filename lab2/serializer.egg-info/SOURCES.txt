@@ -1,8 +1,8 @@
 __main__.py
 setup.py
-tests.py
-serializer/serializer.py
 serializer.egg-info/PKG-INFO
 serializer.egg-info/SOURCES.txt
 serializer.egg-info/dependency_links.txt
+serializer.egg-info/requires.txt
 serializer.egg-info/top_level.txt
+tests/tests.py
