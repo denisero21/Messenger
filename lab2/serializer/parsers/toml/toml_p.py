@@ -8,7 +8,6 @@ class TomlParser:
     def dumps(self, obj):
         self.replace_null(obj)
         return toml.dumps(obj)
-        # return self.inner_dumps(obj)
 
     def dump(self, obj, fp):
         fp.write(self.dumps(obj))
@@ -16,11 +15,7 @@ class TomlParser:
     def loads(self, s):
         res = toml.loads(s)
         self.replace_null_back(res)
-        # print(res)
         return res
-
-        # print(res)
-        # return res
 
     def load(self, fp):
         return self.loads(fp.read())
