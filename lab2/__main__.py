@@ -1,5 +1,6 @@
 from tests.test_parsers import test_parsers
 import math
+from serializer.serializer import serialize_function, deserialize_function
 
 c = 42
 def f(x):
@@ -28,3 +29,6 @@ if __name__ == '__main__':
     print(res(10, 5))
     res = test_parsers(test_fact, True, 'toml')
     print(res(10))
+    #res = test_parsers(f, True, 'json')
+    print(res(99))
+    print()

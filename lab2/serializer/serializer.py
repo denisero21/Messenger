@@ -1,9 +1,9 @@
-from types import FunctionType, CodeType
+from types import FunctionType, CodeType, ModuleType
 import inspect
 standard_types = ["int", "float", "bool", "str", "None"]
 standard_iterable_types = ["list", "tuple", "set"]
 types_to_classes = {"int": int, "float": float, "bool": bool, "str": str, "None": None,
-                    "list": list, "tuple": tuple, "set": set, "dict": dict}
+                    "list": list, "tuple": tuple, "set": set, "dict": dict, "module": ModuleType}
 CODE_ATTRS = (
     'co_argcount',
     'co_posonlyargcount',
@@ -58,7 +58,10 @@ def deserialize(obj):
             return deserialize_function(deserialize(obj["func"]))
         else:
             for key, value in obj.items():
-                response = create_standard_type(key, deserialize(value))
+                if key == 'module':
+                    response = create_standard_type(key, value)
+                else:
+                    response = create_standard_type(key, deserialize(value))
                 return response
     if type(obj).__name__ in standard_iterable_types:
         response = []
@@ -96,6 +99,9 @@ def serialize_function(func):
 
     name = members['__name__']
     globals_res = {"__name__": name}
+    """for global_var in func.__code__.co_names:
+        if global_var in func.__globals__:
+            globals_res[global_var] = func.__globals__[global_var]"""
     for outer_obj_name in code_attrs['co_names']:
         if outer_obj_name == name:
             globals_res[outer_obj_name] = outer_obj_name
