@@ -6,5 +6,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
     path('auth/', views.auth),
-    path('contact/', views.contact),
+    path('register/', views.register),
 ]

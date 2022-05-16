@@ -8,5 +8,5 @@ def index(request):
 def auth(request):
     return render(request, "auth/auth.html")
  
-def contact(request):
-    return HttpResponse("<h2>Контакты</h2>")
+def register(request):
+    return render(request, "register/register.html")
