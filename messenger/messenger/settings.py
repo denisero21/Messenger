@@ -39,8 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'signin.apps.SigninConfig',
+    'signin',
     'chat',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +57,16 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'messenger.urls'
 
 LOGIN_URL='signin.urls'
+
+ASGI_APPLICATION = 'messenger.asgi.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
  
@@ -84,7 +95,10 @@ WSGI_APPLICATION = 'messenger.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'TEST': {
+            'NAME': os.path.join(BASE_DIR, 'db_test.sqlite3')
+        }
     }
 }
 

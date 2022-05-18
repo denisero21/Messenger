@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Mes</title>
+    </head>
+    <body>
+        
+        <div id="sidebar">
+            <table>
+                <tr>
+                    <td id="mes_block">
+                        <label id="mes"> Mes </label>
+                    </td>
+                    <td>
+                        <button type="submit" id="butt_up">Profile</button>
+                    </td>
+                </tr>
+            </table>
+            <div id="mes_block">
+                
+            </div>
+            
+            {% if users %}
+                {%for i in users%}
+                    <button type="submit" id="butt">
+                        <table>
+                            <tr>
+                                <td id="mess_auth"><b>{{i.login}}</b></td>
+                            </tr>
+                            <tr>
+                                <td id="mess_text">{{i.email}}</td>
+                            </tr>
+                        </table>
+                    </button>
+                    
+                {%endfor%}
+            {%else%}
+            {%endif%}
+        </div>
+        <div id="sidebar_line"></div>
+        
+        <label>checking your mom</label>
+    </body>
+
+    <style>
+        body{
+            background-color: #0f0f0f;
+            color: aliceblue;
+            margin-top: -1px;
+            margin-left: -1px;
+        }
+        #mes{
+          font-style: oblique;
+          font-size: 50px;
+          border: 3px solid aliceblue;
+          border-radius: 10px;
+        }
+        #mes_block{
+            margin: 10px 0px 10px 10px;
+        }
+        #sidebar{
+            width: 400px;
+            /* box-sizing: border-box; */
+            height: 946px;
+            margin-top: 1px;
+            margin-left: 1px;
+            position: relative;
+            float: left;
+            margin-right: 1px;
+        }
+        #sidebar_line{
+            width: 8px;
+            height: 946px;
+            border-left: 2px solid aliceblue;
+            box-sizing: border-box;
+            position: relative;
+            float: left;
+        }
+        #butt_up{
+            width: 300px;
+            height: 61px;
+            border: 3px solid aliceblue;
+            background-color: #0f0f0f;
+            color: aliceblue;
+            font-size: medium;
+            border-radius: 10px;
+            margin-top: 2px;
+            /* border-bottom: 2px solid #616161; */
+        }
+        #butt{
+            width: 400px;
+            height: 75px;
+            border: 2px solid aliceblue;
+            background-color: #0f0f0f;
+            color: aliceblue;
+            font-size: medium;
+            border-radius: 15px;
+            border-top: 1px solid aliceblue;
+            border-bottom: 1px solid aliceblue;
+            margin-right: 1px;
+        }
+        #butt:hover{
+            
+            border: 3px solid #3d3d3d;
+        }
+        #butt_up:hover{
+            border: 3px solid #616161;
+        }
+        #mess_auth{
+            font-size: medium;
+            float: left;
+        }
+        #mess_text{
+            font-size: 15px;
+            float: left;
+        }
+        #mess_auth:hover{
+            transform: scale(1.07);
+            transition: all .3s ease;
+        }
+
+    </style>
+</html>
