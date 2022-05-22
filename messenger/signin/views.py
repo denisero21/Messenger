@@ -9,6 +9,9 @@ from .models import *
 from django.shortcuts import render
 from django.contrib.auth import login
 from chat.models import Room
+from django.views.generic.list import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 
 def index(request):
     return render(request, "index.html")
@@ -48,6 +51,22 @@ def main(request):
 
 @login_required
 def room(request, slug):
+    rooms = Room.objects.all()
     room = Room.objects.get(slug=slug)
     messages = Message.objects.filter(room=room)[0:50]
-    return render(request, 'chat.html', {'room': room, 'messages': messages})
+    return render(request, 'chat.html', {'rooms': rooms, 'room': room, 'messages': messages})
+
+class UserList(LoginRequiredMixin, ListView):
+    model = User
+    context_object_name = 'login'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['login'] = context['login'].filter(user=self.request.user)
+
+        search_input = self.request.GET.get('search-area') or ''
+        if search_input:
+            context['login'] = context['login'].filter(title__icontains=search_input)
+
+        context['search_input'] = search_input
+        return context

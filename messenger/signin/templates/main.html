@@ -3,6 +3,17 @@
     <head>
         <meta charset="utf-8">
         <title>Mes</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://cdn.tailwindcss.com"></script>
+
+        <style>
+            .chat-messages {
+                height: 85vh;
+                overflow-y: auto;
+                margin: 6px;
+                background-color: #0f0f0f;
+            }
+        </style>
     </head>
     <body>
         <div id="sidebar">
@@ -24,13 +35,16 @@
                     </td>
                 </tr>
             </table>
-            <div id="mes_block">
-                
+            <div class="d7">
+                <form method="GET">
+                  <input type="text" name='search-area' value="{{search_input}}" placeholder="Find people or chats..">
+                  <input type="submit" value="find">
+                </form>
             </div>
-            
+            <div id="mes_block"></div>
             {% if rooms %}
                 {%for i in rooms%}
-                <a href="{% url 'room' i.slug %}" target="_blank">
+                <a href="{% url 'room' i.slug %}">
                     <button type="submit" id="butt">
                         <table>
                             <tr>
@@ -47,10 +61,14 @@
             {%endif%}
         </div>
         <div id="sidebar_line"></div>
-        <div>
-            <label>checking your mom</label>
+        <div id="header">
+            <label>{% block label %}{%endblock%}</label>
         </div>
-        
+        {% block content %}
+        {% endblock %}
+
+        {% block scripts %}
+        {% endblock %}
     </body>
 
     <style>
@@ -72,7 +90,7 @@
             margin: 10px 0px 10px 10px;
         }
         #sidebar{
-            width: 400px;
+            width: 22vw;
             /* box-sizing: border-box; */
             height: 946px;
             margin-top: 1px;
@@ -83,25 +101,25 @@
         }
         #sidebar_line{
             width: 8px;
-            height: 946px;
+            height: 100vh;
             border-left: 2px solid aliceblue;
             box-sizing: border-box;
             position: relative;
             float: left;
         }
         #butt_up{
-            width: 195px;
+            width: 205px;
             height: 64px;
             border: 3px solid aliceblue;
             background-color: #0f0f0f;
             color: aliceblue;
             font-size: medium;
             border-radius: 10px;
-            margin-top: 2px;
+            margin-top: 1px;
             /* border-bottom: 2px solid #616161; */
         }
         #butt{
-            width: 400px;
+            width: 22vw;
             height: 75px;
             border: 2px solid aliceblue;
             background-color: #0f0f0f;
@@ -138,12 +156,52 @@
             color: aliceblue;
             font-size: medium;
             border-radius: 10px;
-            margin-top: 2px;
+            margin-top: 1px;
             text-align: center;
         }
         a{
             color: #cfcfcf;
             text-decoration: none !important;
+        }
+        #header{
+            border-bottom: 1px solid aliceblue;
+        }
+        /* searchbar */
+        .d7 {background: #0f0f0f;}
+        .d7:after {
+            content:""; 
+            clear:both; 
+            display:table
+        }
+        .d7 form {
+            width: auto;
+            float: right;
+        }
+        .d7 input {
+            width: 22vw;
+            height: 42px;
+            padding-left: 15px;
+            border-radius: 15px;
+            border: 2px solid aliceblue;
+            background: #0f0f0f;
+            outline: none;
+            position: relative;
+            transition: .3s linear;
+            color: aliceblue;
+        }
+        .d7 button {
+            width: 42px;
+            height: 42px;
+            background: none;
+            border: none;
+            position: absolute;
+            top: -2px;
+            right: 0;
+        }
+        .d7 button:before{
+            content: "\f002";
+            font-family: FontAwesome;
+            color: #324b4e;
         }
     </style>
 </html>
