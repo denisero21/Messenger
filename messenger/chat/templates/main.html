@@ -30,7 +30,7 @@
             
             {% if rooms %}
                 {%for i in rooms%}
-                <a href="{% url 'room' i.slug %}" target="_blank">
+                <a href="{% url 'room' room.slug %}">
                     <button type="submit" id="butt">
                         <table>
                             <tr>
@@ -47,10 +47,8 @@
             {%endif%}
         </div>
         <div id="sidebar_line"></div>
-        <div>
-            <label>checking your mom</label>
-        </div>
         
+        <label>checking your mom</label>
     </body>
 
     <style>

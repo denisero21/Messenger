@@ -1,0 +1,92 @@
+body{
+    background-color: #0f0f0f;
+    color: aliceblue;
+    font-family: DejaVu Sans Mono,monospace;
+}
+#signin{
+    margin: auto;
+    font-family: DejaVu Sans Mono,monospace;
+    padding-top: 100px;
+    font-size: 50px;
+    width: 250px;
+    text-align: center;
+}
+#inputs{
+    margin: auto;
+}
+#input{
+    display:block;
+    margin:0 auto;
+    width: 350px;
+    box-sizing: border-box;
+    height: 45px;
+    margin-top: 15px;
+    border-radius: 5px;
+    font-size: large;
+    background-color: #0f0f0f;
+    color: #ffffff;
+}
+#input:hover{
+    border: 3px solid #ffffff;
+    /* background-color: #999; */
+}
+#login{
+    width: 150px;
+    height: 40px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 15px;
+    border-radius: 15px;
+    border:none;
+}
+#login:hover{
+    background-color: #cfcfcf;
+    transform: scale(1.07);
+    transition: all .3s ease;
+}
+input[type=text], input[type=password]{
+    display:block;
+    margin:0 auto;
+    width: 350px;
+    box-sizing: border-box;
+    height: 45px;
+    margin-top: 15px;
+    border-radius: 5px;
+    font-size: large;
+    background-color: #0f0f0f;
+    color: #ffffff;
+}
+input[type=submit]{
+    width: 150px;
+        height: 40px;
+        display: block;
+        margin: 0 auto;
+        margin-top: 15px;
+        border-radius: 15px;
+        border:none;
+}
+input[type=text]:hover, input[type=password]:hover{
+    border: 3px solid #ffffff;
+    /* background-color: #999; */
+}
+
+input[type=submit]:hover{
+    background-color: #cfcfcf;
+    transform: scale(1.07);
+    transition: all .3s ease;
+}
+#mes{
+    font-style: oblique;
+    font-size: 50px;
+    border: 3px solid aliceblue;
+    border-radius: 10px;
+}
+a{
+  text-decoration: none !important;
+  color: #cfcfcf;
+}
+#mark{
+    margin: auto;
+    text-align: center;
+    margin-top: 10px;
+}

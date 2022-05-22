@@ -1,3 +1,37 @@
 #check{
     margin: auto;
 }
+
+/* <div id="inputs">
+            <input type="email or login" id="input" placeholder="Enter your login or email">
+            <p></p>
+            <input type="password" id="input" placeholder="Password">
+        </div>
+        <div id="checkbox">
+            <button id="login" type="submit">Sign in</button>
+        </div> */
+
+        #inputs{
+            margin: auto;
+        }
+        #input{
+            display:block;
+            margin:0 auto;
+            width: 350px;
+            box-sizing: border-box;
+            height: 45px;
+            margin-top: 15px;
+            border-radius: 5px;
+            font-size: large;
+            background-color: #0f0f0f;
+            color: #ffffff;
+        }
+        #login{
+            width: 150px;
+            height: 40px;
+            display: block;
+            margin: 0 auto;
+            margin-top: 15px;
+            border-radius: 15px;
+            border:none;
+        }

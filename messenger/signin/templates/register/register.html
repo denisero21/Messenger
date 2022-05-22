@@ -3,46 +3,32 @@
     <head>
         <meta charset="utf-8">
         <title>sign up</title>
-        <!-- <link rel="stylesheet" href="register.css"> -->
+        <link rel="stylesheet" href="../../static/register/register.css">
     </head>
     <body>
         <div id="signin">
             <label id="mes"> Mes </label>
             <p></p>
             <label>Sign up</label>
-        </div>:
-        <div id="inputs">
-            <input type="email" id="input" placeholder="Enter your email">
-            <input type="login" id="input" placeholder="Enter your login">
-            <!-- <label for="input">Email</label> -->
-            <p></p>
-            <input type="password" id="input" placeholder="Password">
-            <input type="password" id="input" placeholder="Repeat password">
-            <!-- <label for="input">Password</label> -->
         </div>
-        <div id="checkbox">
-            <button id="login" type="submit">Sign up</button>
+        <form method="POST">
+            {% csrf_token %}
+            <div id="inputs">
+                <input type="text" placeholder="Enter your login" name="username" maxlength="150" autocapitalize="none" autocomplete="username" autofocus="" required="" id="id_username">
+                <p></p>
+                <input type="password" placeholder="Password" name="password1" autocomplete="new-password" required="" id="id_password1" aria-autocomplete="list">
+                <p></p>
+                <input type="password" placeholder="Repeat password" name="password2" autocomplete="new-password" required="" id="id_password2">
+            </div>
+            <input type="submit" value='Register'>
+        </form>
+        <div  id="mark">
+            <label><a href="{% url 'login' %}">Sign in</a></label>
         </div>
-        
     </body>
 
     <style>
-        body{
-            background-color: #0f0f0f;
-            color: aliceblue;
-        }
-        #signin{
-            margin: auto;
-            font-family: DejaVu Sans Mono,monospace;
-            padding-top: 100px;
-            font-size: 50px;
-            width: 250px;
-            text-align: center;
-        }
-        #inputs{
-            margin: auto;
-        }
-        #input{
+        input[type='text'], input[type='password']{
             display:block;
             margin:0 auto;
             width: 350px;
@@ -54,32 +40,25 @@
             background-color: #0f0f0f;
             color: #ffffff;
         }
-        #input:hover{
+        input[type=submit]{
+            width: 150px;
+                height: 40px;
+                display: block;
+                margin: 0 auto;
+                margin-top: 15px;
+                border-radius: 15px;
+                border:none !important;
+        }
+        input[type=text]:hover, input[type=password]:hover{
             border: 3px solid #ffffff;
             /* background-color: #999; */
         }
-        #login{
-            width: 150px;
-            height: 40px;
-            display: block;
-            margin: 0 auto;
-            margin-top: 15px;
-            border-radius: 15px;
-            border:none;
-        }
-        #login:hover{
+        
+        input[type=submit]:hover{
             background-color: #cfcfcf;
             transform: scale(1.07);
             transition: all .3s ease;
-        }
-        #mes{
-            font-style: oblique;
-            font-size: 50px;
-            border: 3px solid aliceblue;
-            border-radius: 10px;
-        }
-        a{
-          text-decoration: none !important;
+            border: none !important;
         }
     </style>
 </html>

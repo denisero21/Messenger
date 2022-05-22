@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>{% block title %}{% endblock %}Mes</title>
+
+        <script src="https://cdn.tailwindcss.com"></script>
+
+        <style>
+            .chat-messages {
+                height: 600px;
+                overflow-y: auto;
+            }
+        </style>
+    </head>
+
+    <body>
+        <nav class="flex items-center justify-between px-2 py-3 bg-black">
+            <div>
+                <a href="/" class="mes">Mes</a>
+                {% block head %} {% endblock %}
+            </div>
+        </nav>
+
+        {% block content %}
+        {% endblock %}
+
+        {% block scripts %}
+        {% endblock %}
+    </body>
+    <style>
+        body{
+            background-color: #0f0f0f;
+        }
+        .mes{
+            border: 2px solid aliceblue;
+            color: aliceblue;
+            font-size: 50px;
+            border-radius: 10px;
+            font-family: DejaVu Sans Mono,monospace !important;
+        }
+    </style>
+</html>
