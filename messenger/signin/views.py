@@ -1,9 +1,10 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.views import LoginView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.contrib.auth.forms import UserCreationForm
 from .models import *
 from django.shortcuts import render
@@ -12,9 +13,14 @@ from chat.models import Room
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 def index(request):
+     # if request.user.is_authenticated:
+     #     HttpResponseRedirect(reverse('main'))
+     # else:
     return render(request, "index.html")
+         # return None
 
 class CustomLoginView(LoginView):
     template_name = '../templates/auth/auth.html'
@@ -45,28 +51,42 @@ class RegisterView(FormView):
 
 @login_required
 def main(request):
-    rooms = Room.objects.all()
-    return render(request, 'main.html', {'rooms': rooms})
+    rooms = Room.objects.filter(Q(sender=request.user) | Q(deliver=request.user))
+    users = User.objects.all()
+    return render(request, 'main.html', {'rooms': rooms, 'users': users})
 
 
-@login_required
-def room(request, slug):
-    rooms = Room.objects.all()
-    room = Room.objects.get(slug=slug)
-    messages = Message.objects.filter(room=room)[0:50]
-    return render(request, 'chat.html', {'rooms': rooms, 'room': room, 'messages': messages})
-
-class UserList(LoginRequiredMixin, ListView):
+class UserList(ListView):
     model = User
-    context_object_name = 'login'
+    context_object_name = 'usernames'
+    template_name = 'search.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['login'] = context['login'].filter(user=self.request.user)
-
-        search_input = self.request.GET.get('search-area') or ''
+        search_input = self.request.GET.get('search-area')
         if search_input:
-            context['login'] = context['login'].filter(title__icontains=search_input)
+            context['username'] = context['username'].filter(username__icontains=search_input)
 
-        context['search_input'] = search_input
         return context
+
+    def get_queryset(self):
+        search_in = self.request.GET.get('search-area') 
+        return User.objects.filter(username__icontains=search_in)
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['username'] = context['username'].filter(user=self.request.user)
+
+    #     search_input = self.request.GET.get('search-area') or ''
+    #     if search_input:
+    #         context['username'] = context['username'].filter(username__icontains=search_input)
+
+    #     context['search_input'] = search_input
+    #     return context
+
+def search(request):
+    users = User.objects.all()
+    rooms = Room.objects.filter(Q(sender=request.user) | Q(deliver=request.user))
+    return render(request, "search.html", {'users': users, 'rooms': rooms})
+
+

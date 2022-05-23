@@ -1,10 +1,13 @@
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.conf import settings
 
 
 class Room(models.Model):
-    name = models.CharField(max_length=255)
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='sender', on_delete=models.CASCADE)
+    deliver = models.ForeignKey(User, related_name='deliver', on_delete=models.CASCADE)
+    name = models.CharField(max_length=255, default='')
     slug = models.SlugField(unique=True)
 
 class Message(models.Model):

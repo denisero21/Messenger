@@ -1,0 +1,92 @@
+{% extends 'main.html' %}
+
+
+
+{% block search %}
+<div id="contains">
+    <div id="search">
+        <form method="GET">
+            <input type="text" name='search-area' value="{{search_input}}" placeholder="Find people or chats..">
+            <input type="submit" value="find">
+        </form>
+    </div>
+    {% if users %}
+        {% for user in users %}
+            <div id="users_block">
+                <label id="username">{{ user.username }}</label>
+                <label id="username"></label>
+                <label id="write_button"> <a href='#' id="text">Send</a></label>
+            </div>
+        {%endfor%}
+    {%endif%}
+</div>
+
+<style>
+    #contains{
+        height: 100vh;
+        overflow-y: auto;
+    }
+    #users_block{
+        color: aliceblue;
+        border: 2px solid aliceblue;
+        height: 6vh;
+        border-radius: 10px;
+        margin: auto;
+        width: 25vw;
+        padding-left: 1vw;
+        font-size: 2.5vh;
+        padding-top: 1vh;
+        display: flex;
+        justify-content: center;
+    }
+    #username{
+        flex:2;
+    }
+    #write_button{
+        flex: 1;
+    }
+    #text{
+        padding: 3px;
+        border: 1px solid aliceblue;
+        border-radius: 20px;
+        box-shadow: 1px 1px 3px aliceblue;
+    }
+    #text:hover{
+        padding: 3px;
+        border-radius: 20px;
+        color: #0f0f0f;
+        box-shadow: 0.5px 0.5px 1px aliceblue;
+        background-color: aliceblue;
+    }
+    /* searchbar */
+    #search form{
+        margin: auto;
+        display: block;
+        width: 27vw;
+        margin-top: 64px;
+        margin-bottom: 3vh;
+    }
+    #search input[type=text] {
+        width: 19.5vw;
+        margin-left: 1vw;
+        /* margin-right: 0.5vw; */
+        height: 42px;
+        padding-left: 15px;
+        border-radius: 15px;
+        border: 2px solid aliceblue;
+        background: #0f0f0f;
+        /* transition: .3s linear; */
+        color: aliceblue;
+    }
+    #search input[type=submit]{
+        width: 5vw;
+        border-radius: 15px;
+        height: 42px;
+        border: 2px solid aliceblue;
+        background: #0f0f0f;
+        color: aliceblue;
+        padding-left: -15px;
+    }
+/* searchbar */
+</style>
+{% endblock %}

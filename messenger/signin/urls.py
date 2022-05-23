@@ -8,6 +8,6 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page=''), name='logout'),
     path('register/', views.RegisterView.as_view(), name='register'),
     path('main', views.main, name='main'),
-    path('main/searh', views.UserList.as_view(), name='search'),
-    path('<slug:slug>/', views.room, name='room'),
+    path('main/searh', views.search, name='search'),
+    # path('<slug:slug>/', views.room, name='room'),
 ]
