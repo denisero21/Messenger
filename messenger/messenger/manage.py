@@ -20,3 +20,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+#sudo docker run -p 6379:6379 -d redis:5
