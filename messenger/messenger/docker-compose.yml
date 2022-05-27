@@ -2,13 +2,11 @@ version: '3'
 
 services:
   web:
-    build: ./web
+    build: ./Web
     environment:
       - DJANGO_SUPERUSER_PASSWORD=1234
-    command: bash -c "
-      docker run -p 6379:6379 -d redis:5
-      python3 manage.py createsuperuser && 
-      python3 manage.py runserver 0.0.0.0:8000"
+    command:
+      python3 manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/web_django
     ports:
@@ -18,7 +16,7 @@ services:
   db:
     image: mysql:5.7
     ports:
-      - '3306:3306'
+      - '3303:3306'
     environment:
       MYSQL_DATABASE: 'mesDB'
       MYSQL_USER: 'denis'

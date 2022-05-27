@@ -3,4 +3,6 @@ __pycahce__/
 migrations/
 __init__.py
 .idea/
-db_django/
+db.sqlite3
+.env
+db_django
