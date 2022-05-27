@@ -7,19 +7,20 @@
     </head>
     <body>
         <div id="signin">
-            <label id="mes"> Mes </label>
+            <a href="{% url '' %}"><label id="mes"> Mes </label></a>
             <p></p>
             <label>Sign up</label>
         </div>
         <form method="POST">
             {% csrf_token %}
-            <div id="inputs">
+            {{ form.as_p }}
+            <!-- <div id="inputs">
                 <input type="text" placeholder="Enter your login" name="username" maxlength="150" autocapitalize="none" autocomplete="username" autofocus="" required="" id="id_username">
                 <p></p>
                 <input type="password" placeholder="Password" name="password1" autocomplete="new-password" required="" id="id_password1" aria-autocomplete="list">
                 <p></p>
                 <input type="password" placeholder="Repeat password" name="password2" autocomplete="new-password" required="" id="id_password2">
-            </div>
+            </div> -->
             <input type="submit" value='Register'>
         </form>
         <div  id="mark">
@@ -59,6 +60,37 @@
             transform: scale(1.07);
             transition: all .3s ease;
             border: none !important;
+        }
+        span{
+            margin: auto;
+            display: block;
+            text-align: center;
+            color: aliceblue;
+            margin-top: 5px; 
+            width: 30vw;
+        }
+        li{
+            list-style-type: none;
+            margin-bottom: 5px;
+        }
+        ul{
+            margin: auto;
+            display: block;
+            color: aliceblue;
+            /* margin-top: 5px;  */
+            width: 30vw;
+        }
+        label[for='id_username'], label[for='id_password1'], label[for='id_password2']{
+            text-align: center;
+            margin: auto;
+            display: block;
+            color: aliceblue;
+            visibility: visible;
+        }
+        #mes:hover{
+            border: 3px solid #3d3d3d;
+            color: #3d3d3d;
+            transition: all .3s ease;
         }
     </style>
 </html>

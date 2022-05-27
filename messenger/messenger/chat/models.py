@@ -13,9 +13,8 @@ class Room(models.Model):
 
     def __str__(self):
         return str(self.id)
-    
-    
 
+    
 
 class Message(models.Model):
     room = models.ForeignKey(Room, related_name='messages', on_delete=models.CASCADE)
@@ -25,3 +24,9 @@ class Message(models.Model):
 
     class Meta:
         ordering = ('date_added',)
+
+
+
+class Bio(models.Model):
+    # id = settings.AUTH_USER_MODEL.username
+    bio = models.TextField()

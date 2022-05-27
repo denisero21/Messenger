@@ -3,17 +3,28 @@
     <head>
         <meta charset="utf-8">
         <title>Mes</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://cdn.tailwindcss.com"></script>
+
+        <style>
+            .chat-messages {
+                height: 85vh;
+                overflow-y: auto;
+                margin: 6px;
+                background-color: #0f0f0f;
+            }
+        </style>
     </head>
     <body>
         <div id="sidebar">
             <table>
                 <tr>
                     <td id="mes_block">
-                        <label id="mes"> Mes </label>
+                        <a href="{% url 'main' %}"><label id="mes">Mes</label></a>
                     </td>
                     <td>
                         {% if request.user.is_authenticated%}
-                        <button type="submit" id="butt_up"> {{request.user}}</button>
+                        <a href="{% url 'profile' %}"><button type="submit" id="butt_up"> {{request.user}}</button></a>
                     </td>
                     <td>
                             <button id="log_butt"><a href="{% url 'logout' %}">Logout</a></button>
@@ -24,31 +35,65 @@
                     </td>
                 </tr>
             </table>
-            <div id="mes_block">
-                
+            <div class="d7">
+                <a href="{% url 'search' %}"><input type="submit" value="find"></a>
+                <a href="{% url 'send' %}"><input type="submit" value="New chat"></a>
             </div>
-            
+            <div id="mes_block"></div>
             {% if rooms %}
                 {%for i in rooms%}
-                <a href="{% url 'room' room.slug %}">
-                    <button type="submit" id="butt">
-                        <table>
-                            <tr>
-                                <td id="mess_auth"><b>{{i.name}}</b></td>
-                            </tr>
-                            <tr>
-                                <td id="mess_text">{{i.slug}}</td>
-                            </tr>
-                        </table>
-                    </button>
-                </a> 
+                <div id="wrapp">
+                    <table>
+                        <tr>
+                            <td>
+                                <a href="{% url 'room' i.id %}">
+                                    <button type="submit" id="butt">
+                                        <table>
+                                            <tr>
+                                                {% if i.deliver.username == request.user.username %}
+                                                    <td><label id="mess_auth"><b>{{i.sender.username}}</b></label></td>
+                                                {% else %}
+                                                    <td><label id="mess_auth"><b>{{i.deliver.username}}</b></label></td>
+                                                {%endif%}
+                                            </tr>
+                                            <tr>
+                                                <td><label id="mess_text">{{ i.name }}</label></td>
+                                            </tr>
+                                        </table>
+                                    </button>
+                                </a>
+                            </td>
+                            <td id="td_wrapp">
+                                <div id="del_block">
+                                    <a href="{% url 'delete_room' i.slug %}"><img id="del_btn"  src="https://cdn-icons-png.flaticon.com/512/158/158725.png" alt=""></a>
+                                </div>
+                            </td> 
+                        </tr>
+                    </table>
+                </div>
                 {%endfor%}
             {%else%}
+                <label id="mess_auth">No chats yet..</label>
             {%endif%}
         </div>
         <div id="sidebar_line"></div>
-        
-        <label>checking your mom</label>
+        <div id="header">
+            <label>{% block label %}{%endblock%}</label>
+        </div>
+        {% block delete %}
+        {% endblock %}
+
+        {% block search %}
+        {% endblock %}
+
+        {% block profile %}
+        {% endblock %}
+
+        {% block content %}
+        {% endblock %}
+
+        {% block scripts %}
+        {% endblock %}
     </body>
 
     <style>
@@ -60,19 +105,28 @@
             font-family: DejaVu Sans Mono,monospace;
         }
         #mes{
-          font-style: oblique;
-          font-size: 50px;
-          border: 3px solid aliceblue;
-          border-radius: 10px;
+            font-style: oblique;
+            font-size: 50px;
+            border: 3px solid aliceblue;
+            color: aliceblue;
+            border-radius: 10px;
+            background-color: #0f0f0f;
+            height: 64px;
           
+        }
+        #mes:hover{
+            border: 3px solid #3d3d3d;
+            color: #3d3d3d;
+            transition: all .3s ease;
         }
         #mes_block{
             margin: 10px 0px 10px 10px;
         }
         #sidebar{
-            width: 400px;
+            width: 22.1vw;
             /* box-sizing: border-box; */
-            height: 946px;
+            height: 100vh;
+            overflow-y: auto;
             margin-top: 1px;
             margin-left: 1px;
             position: relative;
@@ -81,67 +135,117 @@
         }
         #sidebar_line{
             width: 8px;
-            height: 946px;
+            height: 100vh;
             border-left: 2px solid aliceblue;
             box-sizing: border-box;
             position: relative;
             float: left;
         }
         #butt_up{
-            width: 195px;
+            width: 11vw;
             height: 64px;
             border: 3px solid aliceblue;
             background-color: #0f0f0f;
             color: aliceblue;
             font-size: medium;
             border-radius: 10px;
-            margin-top: 2px;
+            margin-top: 1px;
             /* border-bottom: 2px solid #616161; */
         }
-        #butt{
-            width: 400px;
+        /* #td_wrapp{
+            margin-right: px;
+        } */
+        #wrapp{
+            width: 21.9vw;
             height: 75px;
             border: 2px solid aliceblue;
+            border-radius: 15px;
+        }
+        #wrapp:hover{
+            border: 3px solid #3d3d3d;
+            transition: all .3s ease;
+        }
+        #del_block{
+            width: 2vw;
+            height: 45px;
+            background-color: aliceblue;
+            border-radius: 15px;
+            margin-right: 0.7vw;
+            border: none;
+        }
+        #del_block:hover{
+            border: 3px solid #3d3d3d;
+            transition: all .3s ease;
+        }
+        #del_btn{
+            margin: auto;
+            width: 1.5vw;
+            height: 35px;
+            padding-top: 10px;
+        }
+        #butt{
+            width: 19vw;
+            height: 70px;
+            border-radius: 20px;
             background-color: #0f0f0f;
             color: aliceblue;
             font-size: medium;
-            border-radius: 15px;
-            border-top: 1px solid aliceblue;
-            border-bottom: 1px solid aliceblue;
             margin-right: 1px;
         }
-        #butt:hover{
-            border: 3px solid #3d3d3d;
-        }
         #butt_up:hover, #log_butt:hover{
-            border: 3px solid #616161;
+            transition: all .3s ease;
+            font-size: 1.05vw;
         }
         #mess_auth{
             font-size: medium;
             float: left;
+            padding-left: 5px;
+            padding-top: 5px;
         }
-        #mess_text{
-            font-size: 15px;
-            float: left;
-        }
-        #mess_auth:hover{
+        /* #mess_auth:hover{
             transform: scale(1.07);
             transition: all .3s ease;
+        } */
+        #mess_text{
+            font-size: 15px;
+            text-align: left;
+            padding-left: 5px;
         }
         #log_butt{
-            width: 95px;
+            width: 5.45vw;
             height: 64px;
             border: 3px solid aliceblue;
             background-color: #0f0f0f;
             color: aliceblue;
             font-size: medium;
             border-radius: 10px;
-            margin-top: 2px;
+            margin-top: 1px;
             text-align: center;
         }
         a{
-            color: #cfcfcf;
+            color: aliceblue;
             text-decoration: none !important;
+        }
+        #header{
+            border-bottom: 1px solid aliceblue;
+        }
+        .d7 input {
+            width: 21.9vw;
+            height: 42px;
+            padding-left: 15px;
+            border-radius: 15px;
+            border: 2px solid aliceblue;
+            background: #0f0f0f;
+            outline: none;
+            position: relative;
+            transition: .3s linear;
+            color: aliceblue;
+            text-align: center;
+            margin-bottom: 4px;
+        }
+        .d7 input:hover{
+            transition: all .3s ease;
+            font-size: 1.1vw;
         }
     </style>
 </html>

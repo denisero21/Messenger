@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+
+{% block delete %}
+<div id="delete_wrapp">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <label id="confirm_text">Are you sure want to delete chat '{{ room.name }}'?</label>
+        <p></p>
+        <input type="submit" value="Delete" id="delete_button">
+    </form>
+    <a href="{% url 'main' %}"><button id="back_button">Back</button></a>
+</div>
+
+<style>
+    #delete_wrapp{
+        margin: auto;
+        display: block;
+        text-align: center;
+        margin-top: 64px;
+    }
+    #confirm_text{
+        font-size: 1.5vw;
+        text-align: center;
+    }
+    #delete_button, #back_button{
+        width: 6vw;
+        font-size: 1vw;
+        border: 2px solid aliceblue;
+        border-radius: 15px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        margin-bottom: 1vh;
+    }
+    #delete_button:hover, #back_button:hover{
+        transition: .3s linear;
+        transform: scale(1.07);
+    }
+</style>
+{% endblock %}

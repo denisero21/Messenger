@@ -1,1 +1,6 @@
 venv/
+__pycahce__/
+migrations/
+__init__.py
+.idea/
+db_django/

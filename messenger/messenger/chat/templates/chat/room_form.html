@@ -1,5 +1,88 @@
-<form action="" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-<input type="submit" value="Send">
-</form>
+{% extends 'main.html' %}
+
+
+
+{% block search %}
+<div id="contains">
+    <div id="users_block">
+        <form action="" method="POST" id="hid">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="fieldWrapper">
+                {{ field.label_tag }}  {{ field }}
+            </div>
+            {%endfor%}
+            <a href="{% url 'main' %}"><input type="submit" value="Send"></a>
+        </form>
+    </div>
+</div>
+
+<style>
+    #contains{
+        height: 100vh;
+        overflow-y: auto;
+    }
+    #users_block{
+        color: aliceblue;
+        height: 10vh;
+        margin: auto;
+        width: 25vw;
+        /* padding-left: 1vw; */
+        font-size: 2.5vh;
+        /* padding-top: 1vh; */
+        display: block;
+        margin-top: 64px;
+    }
+    #hid form{
+        margin: auto;
+        display: block;
+        width: 27vw;
+        margin-bottom: 2vh;
+        height: 5.4vh;
+    }
+    #hid input[type=text] {
+        width: 19.5vw;
+        margin-left: 1vw;
+        /* margin-right: 0.5vw; */
+        height: 5.4vh;
+        padding-left: 15px;
+        border-radius: 15px;
+        border: 2px solid aliceblue;
+        background: #0f0f0f;
+        transition: .3s linear;
+        color: aliceblue;
+    }
+    #hid input[type=submit]{
+        width: 19.5vw;
+        border-radius: 15px;
+        height: 5.3vh;
+        border: 2px solid aliceblue;
+        background: #0f0f0f;
+        color: aliceblue;
+        margin-left: 1vw;
+    }
+    #hid input[type=submit]:hover{
+        transition: all .3s ease;
+        font-size: 0.95vw;
+        height: 4.3vh;
+    }
+    #hid select{
+        width: 19.5vw;
+        margin-left: 1vw;
+        /* margin-right: 0.5vw; */
+        height: 5.4vh;
+        padding-left: 15px;
+        border-radius: 15px;
+        border: 2px solid aliceblue;
+        background: #0f0f0f;
+        transition: .3s linear;
+        color: aliceblue;
+    }
+    #id_slug{
+        visibility: collapse;
+    }
+    label[for=id_slug]{
+        visibility: collapse;
+    }
+</style>
+{% endblock %}

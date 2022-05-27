@@ -1,3 +1,4 @@
+import logging
 from urllib import request
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -10,12 +11,8 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import *
 from django.shortcuts import render
 from django.contrib.auth import login
-from chat.models import Room, Message
-from django.views.generic.list import ListView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
-from django.db.models import Q
-from itertools import chain
+
+logger = logging.getLogger('django')
 
 def index(request):
     if request.user.is_authenticated:
@@ -29,6 +26,7 @@ class CustomLoginView(LoginView):
     redirect_authenticated_user = True
 
     def get_success_url(self):
+        logger.info('The user succesfully loged in')
         return reverse_lazy('main')
         
 
@@ -40,6 +38,7 @@ class RegisterView(FormView):
 
     def form_valid(self, form):
         user = form.save()
+        logger.info('The user was registrated succesfully')
         if user is not None:
             login(self.request, user)
         return super(RegisterView, self).form_valid(form)
@@ -49,64 +48,7 @@ class RegisterView(FormView):
             return redirect('main')
         return super(RegisterView, self).get(*args, **kwargs)
 
-@login_required
-def main(request):
-    rooms = Room.objects.filter(Q(sender=request.user) | Q(deliver=request.user))
-    room = Room.objects.all()
-    room1 = room.filter(Q(sender=request.user))
-    for i in room1:
-        i.name = i.deliver.username
-    room2 = room.filter(Q(deliver=request.user))
-    for i in room2:
-        i.name = i.sender.username
-    names = chain(room1, room2)
-
-    users = User.objects.all()
-    return render(request, 'main.html', {'rooms': rooms, 'names':names, 'users': users})
 
 
-class UserList(ListView):
-    model = User
-    context_object_name = 'usernames'
-    template_name = 'search.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        search_input = self.request.GET.get('search-area')
-        if search_input:
-            context['username'] = context['username'].filter(username__icontains=search_input)
-
-        return context
-
-    def get_queryset(self):
-        search_in = self.request.GET.get('search-area') 
-        return User.objects.filter(username__icontains=search_in)
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['username'] = context['username'].filter(user=self.request.user)
-
-    #     search_input = self.request.GET.get('search-area') or ''
-    #     if search_input:
-    #         context['username'] = context['username'].filter(username__icontains=search_input)
-
-    #     context['search_input'] = search_input
-    #     return context
-
-def search(request):
-    users = User.objects.all()
-    rooms = Room.objects.filter(Q(sender=request.user) | Q(deliver=request.user))
-    # rooms = Room.objects.filter(Q(sender=request.user) | Q(deliver=request.user))
-    return render(request, "search.html", {'users': users, 'rooms': rooms,})
-
-
-class RoomCreate(LoginRequiredMixin, CreateView):
-    model = Room
-    fields = '__all__'
-    success_url = reverse_lazy(main)
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super(RoomCreate, self).form_valid(form)
 
 
