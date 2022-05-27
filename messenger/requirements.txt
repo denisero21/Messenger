@@ -13,8 +13,10 @@ channels-redis==3.4.0
 constantly==15.1.0
 cryptography==37.0.2
 daphne==3.0.2
+decouple==0.0.7
 Django==4.0.4
 django-mysql==4.6.0
+gunicorn==20.1.0
 h11==0.13.0
 hiredis==2.0.0
 hyperlink==21.0.0
@@ -29,6 +31,7 @@ pyasn1-modules==0.2.8
 pycparser==2.21
 pyOpenSSL==22.0.0
 PySocks==1.7.1
+python-dotenv==0.20.0
 selenium==4.1.5
 service-identity==21.1.0
 six==1.16.0
@@ -41,5 +44,6 @@ Twisted==22.4.0
 txaio==22.2.1
 typing-extensions==4.2.0
 urllib3==1.26.9
+whitenoise==6.1.0
 wsproto==1.1.0
 zope.interface==5.4.0
