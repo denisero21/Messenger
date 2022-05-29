@@ -13,7 +13,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-
+load_dotenv()
+SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,8 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-load_dotenv()
-SECRET_KEY = str(os.getenv('SECRET_KEY'))
+# SECRET_KEY = 'django-insecure-+ofeps7w3voyp&^_=cozfbep&!8z3v)7)(#2g!)bohreg2p+09'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -59,9 +59,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'messenger.urls'
 
-LOGIN_URL='signin.urls'
-
 ASGI_APPLICATION = 'messenger.asgi.application'
+
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
@@ -103,8 +102,8 @@ DATABASES = {
         'NAME': 'mesDB',
         'USER': 'denis',
         'PASSWORD': 'denis210203',
-        # 'HOST': 'db',
-        'HOST': '127.0.0.1',
+        'HOST': 'db',
+        # 'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }
@@ -153,9 +152,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static", "static_dirs"),
-)
+
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "static", "media")

@@ -4,7 +4,7 @@
 <div id="delete_wrapp">
     <form action="" method="POST">
         {% csrf_token %}
-        <label id="confirm_text">Are you sure want to delete chat '{{ room.name }}'?</label>
+        <label id="confirm_text">Are you sure want to delete this chat?</label>
         <p></p>
         <input type="submit" value="Delete" id="delete_button">
     </form>
@@ -16,7 +16,7 @@
         margin: auto;
         display: block;
         text-align: center;
-        margin-top: 64px;
+        margin-top: 84px;
     }
     #confirm_text{
         font-size: 1.5vw;
@@ -34,6 +34,24 @@
     #delete_button:hover, #back_button:hover{
         transition: .3s linear;
         transform: scale(1.07);
+    }
+    #del_block{
+        width: 2vw;
+        height: 45px;
+        background-color: aliceblue;
+        border-radius: 15px;
+        margin-right: 0.7vw;
+        border: none;
+    }
+    #del_block:hover{
+        border: 3px solid #3d3d3d;
+        transition: all .3s ease;
+    }
+    #del_btn{
+        margin: auto;
+        width: 1.5vw;
+        height: 35px;
+        padding-top: 10px;
     }
 </style>
 {% endblock %}

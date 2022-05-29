@@ -4,15 +4,32 @@
 
 {% block search %}
 <div id="contains">
+    <div id="create_chat">
+        <label><p>New chat</p></label>
+    </div>
     <div id="users_block">
         <form action="" method="POST" id="hid">
             {% csrf_token %}
-            {% for field in form %}
             <div class="fieldWrapper">
-                {{ field.label_tag }}  {{ field }}
+                <label for="id_sender">Sender</label>
+                <select name="sender" required id="id_sender">
+                    <option value="1" selected>{{ request.user.username }}</option>
+                </select>
+                <label for="id_deliver">Deliver</label>
+                <select name="deliver" required="" id="id_deliver">
+                    <option value="" selected>Choose the user</option>
+                    {% for user in users %}
+                        {% if user.username != 'admin' %}
+                        <option value="{{ user.id }}">{{ user.username }}</option>
+                        {% else %}
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <p></p>
+                <label for="id_name">Chat name</label>
+                <input type="text" name="name" maxlength="255" required="" id="id_name">
             </div>
-            {%endfor%}
-            <a href="{% url 'main' %}"><input type="submit" value="Send"></a>
+            <a href="{% url 'main' %}"><input type="submit" value="Create"></a>
         </form>
     </div>
 </div>
@@ -21,6 +38,16 @@
     #contains{
         height: 100vh;
         overflow-y: auto;
+    }
+    #create_chat{
+        margin-top: 64px;
+    }
+    #create_chat label{
+        margin: auto !important; 
+        display: block;
+        font-size: 2vw;
+        text-align: center;
+        width: 19.5vw;
     }
     #users_block{
         color: aliceblue;
@@ -31,7 +58,6 @@
         font-size: 2.5vh;
         /* padding-top: 1vh; */
         display: block;
-        margin-top: 64px;
     }
     #hid form{
         margin: auto;
@@ -51,6 +77,7 @@
         background: #0f0f0f;
         transition: .3s linear;
         color: aliceblue;
+        margin-bottom: 3vh;
     }
     #hid input[type=submit]{
         width: 19.5vw;
@@ -77,12 +104,14 @@
         background: #0f0f0f;
         transition: .3s linear;
         color: aliceblue;
+        margin-bottom: 1vh;
     }
-    #id_slug{
-        visibility: collapse;
-    }
-    label[for=id_slug]{
-        visibility: collapse;
+    label[for=id_sender], label[for=id_deliver], label[for=id_name]{
+        /* text-align: center; */
+        margin-top: 2vh;
+        margin: auto;
+        /* display: block; */
+        width: 7vw;
     }
 </style>
 {% endblock %}

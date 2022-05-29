@@ -1,4 +1,5 @@
 import logging
+from urllib import request
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
@@ -48,13 +49,17 @@ class UserList(ListView):
     context_object_name = 'usernames'
     template_name = 'search.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        search_input = self.request.GET.get('search-area')
-        if search_input:
-            context['username'] = context['username'].filter(username__icontains=search_input)
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     search_input = self.request.GET.get('search-area')
+    #     if search_input:
+    #         context['username'] = context['username'].filter(username__icontains=search_input)
 
-        return context
+    #     return context
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        context = Room.objects.filter(Q(sender=self.request.user) | Q(deliver=self.request.user))
+        return {'rooms': context}
 
     def get_queryset(self):
         search_in = self.request.GET.get('search-area') 
@@ -63,19 +68,32 @@ class UserList(ListView):
 
 class RoomCreate(LoginRequiredMixin, CreateView):
     model = Room
-    fields = '__all__'
+    fields = ['sender', 'deliver', 'name'] 
     success_url = reverse_lazy(main)
+    
+    def get_context_data(self, **kwargs):
+            context =  super().get_context_data(**kwargs)
+            context = Room.objects.filter(Q(sender=self.request.user) | Q(deliver=self.request.user))
+            users = User.objects.all()
+            return {'rooms': context, 'users': users}
 
     def form_valid(self, form):
         logger.info("Chat was created")
-        form.instance.user = self.request.user
         return super(RoomCreate, self).form_valid(form)
+    
+
 
 class RoomDelete(DeleteView):
     model = Room
     context_object_name = 'room'
     success_url = reverse_lazy(main)
     logger.info('Chat was deleted')
+
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        context = Room.objects.filter(Q(sender=self.request.user) | Q(deliver=self.request.user))
+        return {'rooms': context}
+
 
 def delete_user(request):    
     u = User.objects.get(username = request.user.username)
