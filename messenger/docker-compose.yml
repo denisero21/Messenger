@@ -20,8 +20,8 @@ services:
     environment:
       MYSQL_DATABASE: 'mesDB'
       MYSQL_USER: 'denis'
-      MYSQL_PASSWORD: 'denis210203'
-      MYSQL_ROOT_PASSWORD: 'denis210203'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
     restart: always
     volumes:
       - ./db_django:/var/lib/mysql
